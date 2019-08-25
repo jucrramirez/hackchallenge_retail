@@ -133,13 +133,27 @@ competencia = {}
 options = Options()
 options.headless = True
 browser = webdriver.Firefox(options=options)
-for producto in productos:
-	for empresa in empresas:
+for empresa in empresas:
+	for producto in productos:
 		if empresa == "coppel":
 			competencia["coppel"] = []
 			url = get_coppel(producto)
 			name,price,payments,delivery,warranty = parseCoppel(url,browser)
-			competencia["coppel"].append((name.strip(),price.strip(), payments.strip(), delivery.strip(), warranty.strip()))
+			
+			total, plazo=payments.split(" en ")
+			price = float(re.sub(r'[^\d.]','',price))
+			total = float(re.sub(r'[^\d.]','',total))
+			plazo = float(re.search(r'\d+',plazo).group(0))
+			
+			relacion = total/price
+			
+			deliver1, deliver2 = delivery.split(" a ")
+			deliver1 = float(re.search(r'\d+',deliver1).group(0))
+			deliver2 = float(re.search(r'\d+',deliver2).group(0))
+			
+			warranty = float(re.search(r'\d+',warranty).group(0))
+			
+			competencia["coppel"].append((name.strip(),price, total, relacion,plazo,(deliver1,deliver2),warranty))
 
 		
 print(competencia)
