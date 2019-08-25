@@ -9,6 +9,7 @@ import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+
 #Crawler mercadolibre
 def get_mercadolibre(busqueda):
 
@@ -56,7 +57,12 @@ def parseElektra(soup):
 				elektra_price = strong.get_text('class')	
 	return elektra_name,elektra_price
 
+
 def parseCoppel(url,browser):
+	#descripción
+	#tiempo de entrega
+	#booleano para el cŕedito
+	#tipo de crédito
 	browser.get(url)
 	html=browser.execute_script("return document.body.innerHTML")
 	
@@ -64,8 +70,23 @@ def parseCoppel(url,browser):
 	
 	coppel_name = soup.find("h1",{"class":"main_header"}).text
 	coppel_price = soup.find("span",{"itemprop":"price"}).text
-	
-	return coppel_name, coppel_price
+
+
+def parseMercadoLibre(soup):
+	for h1 in soup.find_all('h1'):
+		clases = h1.get('class')
+		if clases != None:
+			if "ui-pdp-title" in clases:
+				mercadoLibre_name = h1.get_text('class')
+				
+	for span in soup.find_all('span'):
+		clases = span.get('class')
+		if clases != None:
+			if "price-tag-fraction" in clases:
+				mercadoLibre_price = span.get_text('class')
+				
+	for 
+	return mercadoLibre_name, mercadoLibre_price	
 	
 def parseWalmart(url):	
 	browser = webdriver.Firefox()
@@ -99,7 +120,6 @@ for producto in productos:
 print(competencia)
 
 
-
 #~ for html,archivo in zip(htmls,empresas):
 	#~ soup = BeautifulSoup(html, 'html.parser')
 	#~ if "elektra" in archivo:
@@ -115,13 +135,4 @@ print(competencia)
 		#~ name,price = parseWalmart('https://www.walmart.com.mx/celulares/smartphones/celulares-desbloqueados/iphone-6s-apple-64-gb-space-gray-reacondicionado-desbloqueado_00071566070284')
 		#~ competencia["walmart"].append((name.strip(),price.strip()))
 
-#			print(elektra_name)
-#	elektra_name = parseado.handle_starttag('div', [('class', 'productName')])
-#	elktra_price = parseado.handle_starttag('strong', [('class', 'skuBestPrice')])
-#	print(elektra_name)
-#	print(elektra_price)
-	#competencia[archivo[:-4]] = (nombre,precio)
-		
-
-#<strong class="skuBestPrice">$6,999.00</strong>
 
