@@ -9,6 +9,16 @@ import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+#Crawler elektra
+def get_elektra(busqueda):
+
+    link ='https://www.elektra.com.mx/'
+    busqueda = re.sub(' ','%20',busqueda)
+    link = link + busqueda
+    url = subprocess.check_output(["bash", "elektra.sh" , link])
+    return url.decode('utf-8').strip()
+
+
 #Crawler mercadolibre
 def get_mercadolibre(busqueda):
 
@@ -42,18 +52,15 @@ def get_amazon(busqueda):
     url = subprocess.check_output(["bash", "amazon.sh" , link])
     return url.decode('utf-8').strip()
 
-def parseElektra(soup):
-	for div in soup.find_all('div'):
-		clases = div.get('class')
-		if clases != None:
-			if "productName" in clases:
-				elektra_name = div.get_text('class')
-				
-	for strong in soup.find_all('strong'):
-		strongs = strong.get('class')
-		if strongs != None:
-			if "skuBestPrice" in strongs:
-				elektra_price = strong.get_text('class')	
+def parseElektra(url,browser):
+	browser.get(url)
+	html = browser.execute_script("return document.body.innerHTML")
+	
+	soup = BeautifulSoup(html,"lxml")
+	
+	elektra_name = soup.find("div",{"class":"productName"}).text
+	elektra_price = soup.find("strong",{"class":"skuBestPrice"}).text
+
 	return elektra_name,elektra_price
 
 
@@ -63,7 +70,7 @@ def parseCoppel(url,browser):
 	#booleano para el cŕedito
 	#tipo de crédito
 	browser.get(url)
-	html=browser.execute_script("return document.body.innerHTML")
+	html = browser.execute_script("return document.body.innerHTML")
 
 	soup = BeautifulSoup(html,"lxml")
 	
@@ -81,7 +88,7 @@ def parseCoppel(url,browser):
 		coppel_pagos = pagos
 	
 	
-
+	#Obtención de garantía
 	div = soup.find('li', {'class':'beneficio_garantia'})
 	children = div.findChildren("span", recursive=False)
 	for child in children:
@@ -128,15 +135,15 @@ def parseWalmart(url):
 empresas = ["coppel","walmart"]
 productos = ["nintendo switch"]
 
-competencia = {}
+dic_productos = {}
 
 options = Options()
 options.headless = True
 browser = webdriver.Firefox(options=options)
-for empresa in empresas:
-	for producto in productos:
+for producto in productos:
+	dic_productos[producto] = []
+	for empresa in empresas:
 		if empresa == "coppel":
-			competencia["coppel"] = []
 			url = get_coppel(producto)
 			name,price,payments,delivery,warranty = parseCoppel(url,browser)
 			
@@ -153,7 +160,7 @@ for empresa in empresas:
 			
 			warranty = float(re.search(r'\d+',warranty).group(0))
 			
-			competencia["coppel"].append((name.strip(),price, total, relacion,plazo,(deliver1,deliver2),warranty))
+			dic_productos[producto].append((name.strip(),"coppel",price, total, relacion,plazo,(deliver1,deliver2),warranty))
 
 		
 print(competencia)
