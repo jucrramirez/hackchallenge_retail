@@ -163,7 +163,7 @@ for producto in productos:
 			dic_productos[producto].append((name.strip(),"coppel",price, total, relacion,plazo,(deliver1,deliver2),warranty))
 
 		
-print(competencia)
+print(dic_productos)
 
 
 #~ for html,archivo in zip(htmls,empresas):
