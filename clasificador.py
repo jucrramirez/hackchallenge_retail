@@ -69,20 +69,20 @@ def parseElektra(url,browser):
 		elektra_price = "0"
 	
 	#Obtención de descripcion
-	div = soup.find('div', {'class':'productDescription'})
 	try:
+		div = soup.find('div', {'class':'productDescription'})
 		elektra_description = div.text
 	except:
 		elektra_description="-"
 	
 	#Obtención de pagos
-	span = soup.find('span',{'id':'valor-semanal'})
 	try:
+		span = soup.find('span',{'id':'valor-semanal'})
 		elektra_pago = span.text
 	except:
 		elektra_pago = "0"
-	div = soup.find('div',{'class':'msj'})
 	try:
+		div = soup.find('div',{'class':'msj'})
 		elektra_plazo = div.text
 	except:
 		elektra_plazo = "0"
@@ -108,8 +108,8 @@ def parseCoppel(url,browser):
 	except:
 		coppel_price = "0"
 	#Obtención de pagos
-	div = soup.find('div', {'class':'p_credito'})
 	try:
+		div = soup.find('div', {'class':'p_credito'})
 		children = div.findChildren("p" , recursive=False)
 		for child in children:
 			pagos = child.get_text()
@@ -122,8 +122,8 @@ def parseCoppel(url,browser):
 	
 
 	#Obtención del plazo de la garantía
-	div = soup.find('li', {'class':'beneficio_garantia'})
 	try:
+		div = soup.find('li', {'class':'beneficio_garantia'})
 		children = div.findChildren("span", recursive=False)
 		for child in children:
 			garantia = child.get_text().split('\n')[2].strip()
@@ -132,16 +132,16 @@ def parseCoppel(url,browser):
 		coppel_garantia="0"
 
 	#Obtención de tiempo de entrega
-	div = soup.find('div', {'class':'beneficios-product'}).find('ul')
 	try:
+		div = soup.find('div', {'class':'beneficios-product'}).find('ul')
 		item = div.findChild()
 		coppel_entrega = item.find('span').find('p').text
 	except:
 		coppel_entrega="0"
 
 	#Obtención de descripción
-	div = soup.find('div', {'id':'desc'})
 	try:
+		div = soup.find('div', {'id':'desc'})
 		children = div.findChildren('p', recursive=False)
 		for child in children:
 			coppel_descripcion = child.get_text()
@@ -157,38 +157,38 @@ def parseMercadoLibre(url,browser):
 	
 	soup = BeautifulSoup(html,"lxml")
 	
-	h1 = soup.find('h1',{'class':'item-title__primary'})
 	try:
+		h1 = soup.find('h1',{'class':'item-title__primary'})
 		mercadoLibre_name = h1.text
 	except:
 		mercadoLibre_name = "-"
 	
-	span = soup.find('span',{'class':'price-tag-fraction'})
 	try:
+		span = soup.find('span',{'class':'price-tag-fraction'})
 		mercadoLibre_price = span.text
 	except:
 		mercadoLibre_price = "0"
 	
-	span = soup.find('span',{'data-block':'installmentsQuantity'})
 	try:
+		span = soup.find('span',{'data-block':'installmentsQuantity'})
 		mercadoLibre_plazo = span.text
 	except:
 		mercadoLibre_plazo = "0"
 	
-	strong = soup.find('strong',{'class':'ch-price','data-block':'price'})
 	try:
+		strong = soup.find('strong',{'class':'ch-price','data-block':'price'})
 		mercadoLibre_pago = strong.text
 	except:
 		mercadoLibre_pago = "0"
 	
-	p = soup.find('p',{'class':'benefits-row__subtitle','class':'returns-benefit-row__description'})
 	try:
+		p = soup.find('p',{'class':'benefits-row__subtitle','class':'returns-benefit-row__description'})
 		mercadoLibre_devolucion = p.text
 	except:
 		mercadoLibre_devolucion = "0"
 	
-	div = soup.find('div',{'class':'item-description__text'}).find('p')
 	try:
+		div = soup.find('div',{'class':'item-description__text'}).find('p')
 		mercadoLibre_descripcion = div.text
 	except:
 		mercadoLibre_descripcion = "-"
