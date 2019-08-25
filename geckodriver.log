@@ -168,3 +168,195 @@ console.error: BroadcastService:
   Stack:
     remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
 
+1566714740050	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofile1mYecT"
+*** You are running in headless mode.
+
+(firefox:15481): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566714740931	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566714740931	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566714740931	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566714740931	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566714743738	Marionette	INFO	Listening on port 40391
+1566714743804	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:15559): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566714919994	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileT8jg2x"
+*** You are running in headless mode.
+
+(firefox:15813): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566714921026	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566714921026	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566714921027	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566714921027	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566714924099	Marionette	INFO	Listening on port 39799
+1566714924128	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:15891): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566714974242	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileavext1"
+*** You are running in headless mode.
+
+(firefox:16089): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566714974888	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566714974889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566714974889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566714974889	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566714977952	Marionette	INFO	Listening on port 33477
+1566714977965	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:16167): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566715050585	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofiletf5ztM"
+*** You are running in headless mode.
+
+(firefox:16420): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566715051596	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566715051596	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566715051597	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566715051597	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566715055482	Marionette	INFO	Listening on port 35189
+1566715055514	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:16500): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566715111000	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilei75pCR"
+*** You are running in headless mode.
+
+(firefox:16720): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566715111964	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566715111964	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566715111965	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566715111965	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566715116051	Marionette	INFO	Listening on port 41349
+1566715116129	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:16801): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566715153036	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileLVNCIE"
+*** You are running in headless mode.
+
+(firefox:16987): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566715154652	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566715154653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566715154653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566715154653	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566715159259	Marionette	INFO	Listening on port 39823
+1566715159637	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:17066): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566715215735	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileoeh7WV"
+*** You are running in headless mode.
+
+(firefox:17304): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566715217606	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566715217606	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566715217606	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566715217606	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566715221460	Marionette	INFO	Listening on port 34207
+1566715221557	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:17377): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
+1566715363210	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-headless" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofileNcmoGm"
+*** You are running in headless mode.
+
+(firefox:17796): Gtk-WARNING **: Locale not supported by C library.
+	Using the fallback 'C' locale.
+1566715365030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: mozillaAddons
+1566715365030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: telemetry
+1566715365030	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: resource://pdf.js/
+1566715365031	addons.webextension.screenshots@mozilla.org	WARN	Loading extension 'screenshots@mozilla.org': Reading manifest: Invalid extension permission: about:reader*
+1566715371244	Marionette	INFO	Listening on port 35159
+1566715371272	Marionette	WARN	TLS certificate errors will be ignored for this session
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14: unreachable code after return statement
+JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
+
+(/usr/lib/firefox/firefox:17879): dconf-WARNING **: Unable to open /var/lib/snapd/desktop/dconf/profile/user: Permission denied
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
