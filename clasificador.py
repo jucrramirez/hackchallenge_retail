@@ -60,8 +60,18 @@ def parseElektra(url,browser):
 	
 	elektra_name = soup.find("div",{"class":"productName"}).text
 	elektra_price = soup.find("strong",{"class":"skuBestPrice"}).text
+	
+	#Obtención de descripcion
+	div = soup.find('div', {'class':'productDescription'})
+	elektra_description = div.text
+	
+	#Obtención de pagos
+	span = soup.find('span',{'id':'valor-semanal'})
+	elektra_pago = span.text
+	div = soup.find('div',{'class':'msj'})
+	elektra_plazo = div.text
 
-	return elektra_name,elektra_price
+	return elektra_name,elektra_price,elektra_description,elektra_pago,elektra_plazo
 
 
 def parseCoppel(url,browser):
@@ -137,7 +147,7 @@ def parseWalmart(url):
 	return walmart_name, walmart_price
 
 
-empresas = ["coppel","walmart"]
+empresas = ["elektra","coppel","walmart"]
 productos = ["nintendo switch"]
 
 dic_productos = {}
@@ -166,8 +176,20 @@ for producto in productos:
 			
 			warranty = float(re.search(r'\d+',warranty).group(0))
 			
-			dic_productos[producto].append((name.strip(),"coppel",description.strip(),price, total, relacion,plazo,(deliver1,deliver2),warranty))
-
+			dic_productos[producto].append((name.strip(),"coppel",description.strip(),price, total, relacion,plazo,(deliver1,deliver2),"-",warranty))
+		if empresa == "elektra":
+			url = get_elektra(producto)
+			
+			name,price,description,credit,time = parseElektra(url,browser)
+			
+			price = float(re.sub(r'[^\d.]','',price))
+			credit = float(re.sub(r'[^\d.]','',credit))
+			time = float(re.search(r'\d+',time).group(0))
+			
+			total = credit * time
+			relacion = total / price
+			
+			dic_productos[producto].append((name.strip(),"elektra",description.strip(),price, total, relacion,time,(2,8),5,1))
 
 		
 print(dic_productos)

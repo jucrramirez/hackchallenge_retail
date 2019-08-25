@@ -1,1 +1,1 @@
-{"empresa":[(NOMBRE,descripcion,precio,TOTAL_credito,relacion,plazo,(entrega1,engrega2),garantía)]}
+{"query":[(NOMBRE,"empresa",descripcion,precio,total_prestamo,relacion,plazo,(entrega1,entrega2),dias_devolucion,años_garantia)]}
