@@ -87,13 +87,12 @@ def parseCoppel(url,browser):
 		pagos = pagos.split('(')[1].split('*')[0].strip()
 		coppel_pagos = pagos
 	
-	
-	#Obtención de garantía
+
+	#Obtención del plazo de la garantía
 	div = soup.find('li', {'class':'beneficio_garantia'})
 	children = div.findChildren("span", recursive=False)
 	for child in children:
 		garantia = child.get_text().split('\n')[2].strip()
-		print(garantia)
 		coppel_garantia = garantia
 
 	#Obtención de tiempo de entrega
@@ -101,7 +100,13 @@ def parseCoppel(url,browser):
 	item = div.findChild()
 	coppel_entrega = item.find('span').find('p').text
 
-	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia
+	#Obtención de descripción
+	div = soup.find('div', {'id':'desc'})
+	children = div.findChildren('p', recursive=False)
+	for child in children:
+		coppel_descripcion = child.get_text()
+
+	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia, coppel_descripcion
 	
 
 def parseMercadoLibre(soup):
@@ -145,7 +150,8 @@ for producto in productos:
 	for empresa in empresas:
 		if empresa == "coppel":
 			url = get_coppel(producto)
-			name,price,payments,delivery,warranty = parseCoppel(url,browser)
+
+			name,price,payments,delivery,warranty,description = parseCoppel(url,browser)
 			
 			total, plazo=payments.split(" en ")
 			price = float(re.sub(r'[^\d.]','',price))
@@ -160,7 +166,8 @@ for producto in productos:
 			
 			warranty = float(re.search(r'\d+',warranty).group(0))
 			
-			dic_productos[producto].append((name.strip(),"coppel",price, total, relacion,plazo,(deliver1,deliver2),warranty))
+			dic_productos[producto].append((name.strip(),"coppel",description.strip(),price, total, relacion,plazo,(deliver1,deliver2),warranty))
+
 
 		
 print(dic_productos)
