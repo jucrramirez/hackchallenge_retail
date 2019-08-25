@@ -45,15 +45,22 @@ MongoClient.connect(url, function(err, db) {
 				res.render('error.ejs', {error: textoErr})
 				}
 			//si la consulta arroja resultados, en infoVolumen los guardamos, por orden.	
-			if (result.length > 0 ) {				
-				var A = result[0]["AB"]
-				console.log(A)
-				var B = result[0]["CD"]
-				console.log(B)
-				var C = result[0]["EF"]
-				console.log(C)
+			if (result.length > 0 ) {
+				var nombreProd = result[0]["Samsung Galaxy A50"][0][0]
+				var tienda_elektra = result[0]["Samsung Galaxy A50"][0][1]
+				var precio_elektra = result[0]["Samsung Galaxy A50"][0][3]
+				var relacion_elektra = result[0]["Samsung Galaxy A50"][0][5]
+				var entrega_elektra = result[0]["Samsung Galaxy A50"][0][7]
+				var devolucion_elektra = result[0]["Samsung Galaxy A50"][0][8]
+				var garantia_elektra = result[0]["Samsung Galaxy A50"][0][9]
+				var tienda_coppel = result[0]["Samsung Galaxy A50"][1][1]
+				var precio_coppel = result[0]["Samsung Galaxy A50"][1][3]
+				var relacion_coppel = result[0]["Samsung Galaxy A50"][1][5]
+				var entrega_coppel = result[0]["Samsung Galaxy A50"][1][7]
+				var devolucion_coppel = result[0]["Samsung Galaxy A50"][1][8]
+				var garantia_coppel = result[0]["Samsung Galaxy A50"][1][9]
 			}
-		res.render('index.ejs',{var1: A, var2:B, var3:C})
+		res.render('index.ejs', {nomP: nombreProd, tien_E: tienda_elektra, pre_E: precio_elektra, rel_E: relacion_elektra, ent_E: entrega_elektra, dev_E: devolucion_elektra, gar_E: garantia_elektra, tien_C: tienda_coppel, pre_C: precio_coppel, rel_C: relacion_coppel, ent_C: entrega_coppel, dev_C: devolucion_coppel, gar_C: garantia_coppel})
 		});
 		});
 	  });
