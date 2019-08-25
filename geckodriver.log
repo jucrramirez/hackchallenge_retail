@@ -33,3 +33,11 @@ JavaScript warning: https://www.coppel.com/wcsstore/dojo18/dojo/dojo.js, line 14
 JavaScript error: https://cdn.scarabresearch.com/js/17FBFD0A311795A0/scarab-v2.js, line 343: SyntaxError: Scarab Queue is not an array
 
 (/usr/lib/firefox/firefox:13071): dconf-WARNING **: Unable to open /var/lib/menu-xdg/dconf/profile/user: Permiso denegado
+console.error: BroadcastService: 
+  receivedBroadcastMessage: handler for
+  remote-settings/monitor_changes
+  threw error:
+  Message: Error: Polling for changes failed: http://%(server)s/dummy/blocklist//buckets/monitor/collections/changes/records?_expected=%221561548844810%22 is not a valid URL..
+  Stack:
+    remoteSettingsFunction/remoteSettings.pollChanges@resource://services-settings/remote-settings.js:201:13
+
