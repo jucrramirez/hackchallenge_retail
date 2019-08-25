@@ -59,13 +59,21 @@ def parseElektra(url,browser):
 	html = browser.execute_script("return document.body.innerHTML")
 	
 	soup = BeautifulSoup(html,"lxml")
-	
-	elektra_name = soup.find("div",{"class":"productName"}).text
-	elektra_price = soup.find("strong",{"class":"skuBestPrice"}).text
+	try:
+		elektra_name = soup.find("div",{"class":"productName"}).text
+	except:
+		elektra_name = "-"
+	try:
+		elektra_price = soup.find("strong",{"class":"skuBestPrice"}).text
+	except:
+		elektra_price = "0"
 	
 	#Obtención de descripcion
 	div = soup.find('div', {'class':'productDescription'})
-	elektra_description = div.text
+	try:
+		elektra_description = div.text
+	except:
+		elektra_description="-"
 	
 	#Obtención de pagos
 	span = soup.find('span',{'id':'valor-semanal'})
@@ -101,32 +109,44 @@ def parseCoppel(url,browser):
 		coppel_price = "0"
 	#Obtención de pagos
 	div = soup.find('div', {'class':'p_credito'})
-	children = div.findChildren("p" , recursive=False)
-	for child in children:
-		pagos = child.get_text()
-		pagos = pagos.split('\n')
-		pagos = pagos[0] + pagos[1].strip()
-		pagos = pagos.split('(')[1].split('*')[0].strip()
-		coppel_pagos = pagos
+	try:
+		children = div.findChildren("p" , recursive=False)
+		for child in children:
+			pagos = child.get_text()
+			pagos = pagos.split('\n')
+			pagos = pagos[0] + pagos[1].strip()
+			pagos = pagos.split('(')[1].split('*')[0].strip()
+			coppel_pagos = pagos
+	except:
+		coppel_pagos = "0"
 	
 
 	#Obtención del plazo de la garantía
 	div = soup.find('li', {'class':'beneficio_garantia'})
-	children = div.findChildren("span", recursive=False)
-	for child in children:
-		garantia = child.get_text().split('\n')[2].strip()
-		coppel_garantia = garantia
+	try:
+		children = div.findChildren("span", recursive=False)
+		for child in children:
+			garantia = child.get_text().split('\n')[2].strip()
+			coppel_garantia = garantia
+	except:
+		coppel_garantia="0"
 
 	#Obtención de tiempo de entrega
 	div = soup.find('div', {'class':'beneficios-product'}).find('ul')
-	item = div.findChild()
-	coppel_entrega = item.find('span').find('p').text
+	try:
+		item = div.findChild()
+		coppel_entrega = item.find('span').find('p').text
+	except:
+		coppel_entrega="0"
 
 	#Obtención de descripción
 	div = soup.find('div', {'id':'desc'})
-	children = div.findChildren('p', recursive=False)
-	for child in children:
-		coppel_descripcion = child.get_text()
+	try:
+		children = div.findChildren('p', recursive=False)
+		for child in children:
+			coppel_descripcion = child.get_text()
+	except:
+		coppel_descripcion="-"
 
 	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia, coppel_descripcion
 	
@@ -182,6 +202,7 @@ def parseWalmart(url):
 	
 	soup = BeautifulSoup(html,"lxml")
 	
+	
 	walmart_name = soup.find("h1",{"itemprop":"name"}).text
 	walmart_price = soup.find("h4",{"itemprop":"price"}).text
 		
@@ -234,7 +255,6 @@ for producto in productos:
 			dic_productos[producto].append((name.strip(),"elektra",description.strip(),price, total, relacion,time,(2,8),5,1))
 		if empresa == "mercadoLibre":
 			url = get_mercadolibre(producto)
-			print(url)
 			
 			name, price, pago, plazo, devolucion, descripcion = parseMercadoLibre(url,browser)
 			
@@ -243,6 +263,8 @@ for producto in productos:
 			time = float(re.search(r'\d+',plazo).group(0))
 			devolucion = float(re.search(r'\d+',devolucion).group(0))
 			
+			credit = credit / 100
+
 			total = credit * time
 			relacion = total / price
 			
