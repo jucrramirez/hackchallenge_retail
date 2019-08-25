@@ -3,12 +3,11 @@
 #
 
 import re
-from html.parser import HTMLParser
 from bs4 import BeautifulSoup
+
 import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
-
 
 #Crawler mercadolibre
 def get_mercadolibre(busqueda):
@@ -65,12 +64,31 @@ def parseCoppel(url,browser):
 	#tipo de crédito
 	browser.get(url)
 	html=browser.execute_script("return document.body.innerHTML")
-	
+
 	soup = BeautifulSoup(html,"lxml")
 	
 	coppel_name = soup.find("h1",{"class":"main_header"}).text
 	coppel_price = soup.find("span",{"itemprop":"price"}).text
+	
+	#Obtención de pagos
+	div = soup.find('div', {'class':'p_credito'})
+	children = div.findChildren("p" , recursive=False)
+	for child in children:
+		pagos = child.get_text()
+		pagos = pagos.split('\n')
+		pagos = pagos[0] + pagos[1].strip()
+		pagos = pagos.split('(')[1].split('*')[0].strip()
+		coppel_pagos = pagos
+	
+	#Obtención de tiempo de entrega
+	div = soup.find('div', {'class':'beneficios-product'})
+	children = div.findChildren("p", recursive=False)
+	for child in children:
+		print(child)
 
+
+	return coppel_name, coppel_price, coppel_pagos
+	
 
 def parseMercadoLibre(soup):
 	for h1 in soup.find_all('h1'):
@@ -84,11 +102,10 @@ def parseMercadoLibre(soup):
 		if clases != None:
 			if "price-tag-fraction" in clases:
 				mercadoLibre_price = span.get_text('class')
-				
-	for 
+				 
 	return mercadoLibre_name, mercadoLibre_price	
-	
-def parseWalmart(url):	
+
+def parseWalmart(url):
 	browser = webdriver.Firefox()
 	browser.get(url)
 	html=browser.execute_script("return document.body.innerHTML")
@@ -114,8 +131,8 @@ for producto in productos:
 		if empresa == "coppel":
 			competencia["coppel"] = []
 			url = get_coppel(producto)
-			name,price = parseCoppel(url,browser)
-			competencia["coppel"].append((name.strip(),price.strip()))
+			name,price,payments = parseCoppel(url,browser)
+			competencia["coppel"].append((name.strip(),price.strip(), payments.strip()))
 		
 print(competencia)
 
