@@ -2,21 +2,45 @@
 #Hack Challenge
 #
 
-from html.parser import HTMLParser
-from bs4 import BeautifulSoup
-import os
-#rom requests_html import HTMLSession
-import asyncio
-#from pyppeteer import launch
+import re
 from bs4 import BeautifulSoup
 
-archivos = os.listdir("htmls")
-htmls=[]
-for archivo in archivos:
-	with open("htmls/"+archivo, encoding='utf8') as entrada:
-		htmls.append(entrada.read())
+import subprocess
+from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
-competencia = {}
+#Crawler mercadolibre
+def get_mercadolibre(busqueda):
+
+    link ='https://listado.mercadolibre.com.mx/'
+    busqueda = re.sub(' ','-',busqueda)
+    link = link + busqueda
+    url = subprocess.check_output(["bash", "mercadolibre.sh" , link])
+    return url.decode('utf-8').strip()
+
+#Crawler coppel
+def get_coppel(busqueda):
+    link = "https://www.google.com.mx/search?q=coppel"
+    busqueda = re.sub(' ','+',busqueda)
+    link = link + busqueda
+    url = subprocess.check_output(["bash", "coppel.sh" , link])
+    return url.decode('utf-8').strip()
+
+#Crawler liverpool
+def get_liverpool(busqueda):
+    link = "https://www.google.com.mx/search?q=liverpool"
+    busqueda = re.sub(' ','+',busqueda)
+    link = link + busqueda
+    url = subprocess.check_output(["bash", "liverpool.sh" , link])
+    return url.decode('utf-8').strip()
+
+#Crawler amazon
+def get_amazon(busqueda):
+    link = "https://www.amazon.com.mx/s?k="
+    busqueda = re.sub(' ','+',busqueda)
+    link = link + busqueda
+    url = subprocess.check_output(["bash", "amazon.sh" , link])
+    return url.decode('utf-8').strip()
 
 def parseElektra(soup):
 	for div in soup.find_all('div'):
@@ -32,23 +56,19 @@ def parseElektra(soup):
 				elektra_price = strong.get_text('class')	
 	return elektra_name,elektra_price
 
-def parseCoppel(soup):
+
+def parseCoppel(url,browser):
 	#descripción
 	#tiempo de entrega
 	#booleano para el cŕedito
 	#tipo de crédito
+	browser.get(url)
+	html=browser.execute_script("return document.body.innerHTML")
+
+	soup = BeautifulSoup(html,"lxml")
 	
-	for h1 in soup.find_all('h1'):
-		clases = h1.get('class')
-		if clases != None:
-			if "main_header" in clases:
-				coppel_name = h1.get_text('class')
-								
-	for span in soup.find_all('span'):
-		spans = span.get('itemprop')
-		if spans != None:
-			if "price" in spans:
-				coppel_price = span.get_text('itemprop').split()[0]
+	coppel_name = soup.find("h1",{"class":"main_header"}).text
+	coppel_price = soup.find("span",{"itemprop":"price"}).text
 	
 	#Obtención de pagos
 	div = soup.find('div', {'class':'p_credito'})
@@ -68,6 +88,7 @@ def parseCoppel(soup):
 
 
 	return coppel_name, coppel_price, coppel_pagos
+	
 
 def parseMercadoLibre(soup):
 	for h1 in soup.find_all('h1'):
@@ -83,57 +104,52 @@ def parseMercadoLibre(soup):
 				mercadoLibre_price = span.get_text('class')
 				 
 	return mercadoLibre_name, mercadoLibre_price	
-"""	
-def parseWalmart(url):	
-	session = HTMLSession()
-	r = session.get(url)
-	r.html.render()
-	table = r.html.find('h1[itemprop="name"]', first=False)
-	for tabla in table:
-		walmart_name = tabla.text
-	table = r.html.find('h4[itemprop="price"]', first=False)
-	for tabla in table:
-		walmart_price = tabla.text		
-	return walmart_name, walmart_price
-"""
-for html,archivo in zip(htmls,archivos):
-	soup = BeautifulSoup(html, 'html.parser')
-	if "elektra" in archivo:
-		competencia["elektra"] = []
-		name,price = parseElektra(soup)
-		competencia["elektra"].append((name.strip(),price.strip()))
-	elif "coppel" in archivo:
-		competencia["coppel"] = []
-		name,price, payments = parseCoppel(soup)
-		competencia["coppel"].append((name.strip(),price.strip(), payments.strip()))
-	#elif "walmart" in archivo:
-	#	competencia["walmart"] = []
-	#	name,price = parseWalmart('https://www.walmart.com.mx/celulares/smartphones/celulares-desbloqueados/iphone-6s-apple-64-gb-space-gray-reacondicionado-desbloqueado_00071566070284')
-	#	competencia["walmart"].append((name.strip(),price.strip()))
-	elif "mercadolibre" in archivo:
-		competencia["mercadolibre"] = []
-		name,price = parseMercadoLibre(soup)
-		competencia["mercadolibre"].append((name.strip(),price.strip()))	
-	'''
-	elif "liverpool" in archivo:
-		competencia["liverpool"] = []
-		name,price = parseMercadoLibre(soup)
-		competencia["liverpool"].append((name.strip(),price.strip()))		
-	elif "amazon" in archivo:
-		competencia["amazon"] = []
-		name,price = parseMercadoLibre(soup)
-		competencia["mercadolibre"].append((name.strip(),price.strip()))		
-	'''
 
-print(competencia)		
-
-#	print(elektra_name)
-#	elektra_name = parseado.handle_starttag('div', [('class', 'productName')])
-#	elktra_price = parseado.handle_starttag('strong', [('class', 'skuBestPrice')])
-#	print(elektra_name)
-#	print(elektra_price)
-	#competencia[archivo[:-4]] = (nombre,precio)
+def parseWalmart(url):
+	browser = webdriver.Firefox()
+	browser.get(url)
+	html=browser.execute_script("return document.body.innerHTML")
+	
+	soup = BeautifulSoup(html,"lxml")
+	
+	walmart_name = soup.find("h1",{"itemprop":"name"}).text
+	walmart_price = soup.find("h4",{"itemprop":"price"}).text
 		
+	return walmart_name, walmart_price
 
-#<strong class="skuBestPrice">$6,999.00</strong>
+
+empresas = ["coppel","walmart"]
+productos = ["nintendo switch"]
+
+competencia = {}
+
+options = Options()
+options.headless = True
+browser = webdriver.Firefox(options=options)
+for producto in productos:
+	for empresa in empresas:
+		if empresa == "coppel":
+			competencia["coppel"] = []
+			url = get_coppel(producto)
+			name,price,payments = parseCoppel(url,browser)
+			competencia["coppel"].append((name.strip(),price.strip(), payments.strip()))
+		
+print(competencia)
+
+
+#~ for html,archivo in zip(htmls,empresas):
+	#~ soup = BeautifulSoup(html, 'html.parser')
+	#~ if "elektra" in archivo:
+		#~ competencia["elektra"] = []
+		#~ name,price = parseElektra(soup)
+		#~ competencia["elektra"].append((name.strip(),price.strip()))
+	#~ elif "coppel" in archivo:
+		#~ competencia["coppel"] = []
+		#~ name,price = parseCoppel(soup)
+		#~ competencia["coppel"].append((name.strip(),price.strip()))
+	#~ elif "walmart" in archivo:
+		#~ competencia["walmart"] = []
+		#~ name,price = parseWalmart('https://www.walmart.com.mx/celulares/smartphones/celulares-desbloqueados/iphone-6s-apple-64-gb-space-gray-reacondicionado-desbloqueado_00071566070284')
+		#~ competencia["walmart"].append((name.strip(),price.strip()))
+
 
