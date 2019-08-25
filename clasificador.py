@@ -5,16 +5,15 @@
 from html.parser import HTMLParser
 from bs4 import BeautifulSoup
 import os
-from selenium import webdriver
-from requests_html import HTMLSession
+#rom requests_html import HTMLSession
 import asyncio
-from pyppeteer import launch
+#from pyppeteer import launch
 from bs4 import BeautifulSoup
 
 archivos = os.listdir("htmls")
 htmls=[]
 for archivo in archivos:
-	with open("htmls/"+archivo) as entrada:
+	with open("htmls/"+archivo, encoding='utf8') as entrada:
 		htmls.append(entrada.read())
 
 competencia = {}
@@ -51,19 +50,24 @@ def parseCoppel(soup):
 			if "price" in spans:
 				coppel_price = span.get_text('itemprop').split()[0]
 	
-	session = HTMLSession()
-	r = session.get(url)
-	r.html.render()
-	table = r.html.find('h1[itemprop="name"]', first=False)
-	for tabla in table:
-		walmart_name = tabla.text
-	table = r.html.find('h4[itemprop="price"]', first=False)
-	for tabla in table:
-		walmart_price = tabla.text		
-	return walmart_name, walmart_price
-		
+	#Obtención de pagos
+	div = soup.find('div', {'class':'p_credito'})
+	children = div.findChildren("p" , recursive=False)
+	for child in children:
+		pagos = child.get_text()
+		pagos = pagos.split('\n')
+		pagos = pagos[0] + pagos[1].strip()
+		pagos = pagos.split('(')[1].split('*')[0].strip()
+		coppel_pagos = pagos
 	
-	return coppel_name, coppel_price
+	#Obtención de tiempo de entrega
+	div = soup.find('div', {'class':'beneficios-product'})
+	children = div.findChildren("p", recursive=False)
+	for child in children:
+		print(child)
+
+
+	return coppel_name, coppel_price, coppel_pagos
 
 def parseMercadoLibre(soup):
 	for h1 in soup.find_all('h1'):
@@ -77,10 +81,9 @@ def parseMercadoLibre(soup):
 		if clases != None:
 			if "price-tag-fraction" in clases:
 				mercadoLibre_price = span.get_text('class')
-				
-	for 
+				 
 	return mercadoLibre_name, mercadoLibre_price	
-	
+"""	
 def parseWalmart(url):	
 	session = HTMLSession()
 	r = session.get(url)
@@ -92,7 +95,7 @@ def parseWalmart(url):
 	for tabla in table:
 		walmart_price = tabla.text		
 	return walmart_name, walmart_price
-	
+"""
 for html,archivo in zip(htmls,archivos):
 	soup = BeautifulSoup(html, 'html.parser')
 	if "elektra" in archivo:
@@ -101,8 +104,8 @@ for html,archivo in zip(htmls,archivos):
 		competencia["elektra"].append((name.strip(),price.strip()))
 	elif "coppel" in archivo:
 		competencia["coppel"] = []
-		name,price = parseCoppel(soup)
-		competencia["coppel"].append((name.strip(),price.strip()))
+		name,price, payments = parseCoppel(soup)
+		competencia["coppel"].append((name.strip(),price.strip(), payments.strip()))
 	#elif "walmart" in archivo:
 	#	competencia["walmart"] = []
 	#	name,price = parseWalmart('https://www.walmart.com.mx/celulares/smartphones/celulares-desbloqueados/iphone-6s-apple-64-gb-space-gray-reacondicionado-desbloqueado_00071566070284')
@@ -110,7 +113,7 @@ for html,archivo in zip(htmls,archivos):
 	elif "mercadolibre" in archivo:
 		competencia["mercadolibre"] = []
 		name,price = parseMercadoLibre(soup)
-		competencia["mercadolibre"].append((name.strip(),price.strip()))		
+		competencia["mercadolibre"].append((name.strip(),price.strip()))	
 	'''
 	elif "liverpool" in archivo:
 		competencia["liverpool"] = []
