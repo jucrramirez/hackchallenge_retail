@@ -210,8 +210,8 @@ def parseWalmart(url):
 
 
 empresas = ["elektra","coppel","walmart","mercadoLibre"]
-# ~ productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
-productos = ["Samsung Galaxy A50"]
+productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
+#productos = ["Samsung Galaxy A50"]
 
 dic_productos = {}
 
@@ -235,7 +235,10 @@ for producto in productos:
 			total = float(re.sub(r'[^\d.]','',total))
 			plazo = float(re.search(r'\d+',plazo).group(0))
 			
-			relacion = total/price
+			try:
+				relacion = total/price
+			except:
+				relacion = 0
 			
 			try:
 				deliver1, deliver2 = delivery.split(" a ")
@@ -258,7 +261,10 @@ for producto in productos:
 			time = float(re.search(r'\d+',time).group(0))
 			
 			total = credit * time
-			relacion = total / price
+			try:
+				relacion = total / price
+			except:
+				relacion=0
 			
 			dic_productos[producto].append((name.strip(),"elektra",description.strip(),price, total, relacion,time,(2,8),5,1))
 		if empresa == "mercadoLibre":
@@ -274,7 +280,10 @@ for producto in productos:
 			credit = credit / 100
 
 			total = credit * time
-			relacion = total / price
+			try:
+				relacion = total / price
+			except:
+				relacion=0
 			
 			dic_productos[producto].append((name.strip(),"mercadoLibre",description.strip(),price, total, relacion,time,(0,0),devolucion,0))
 
