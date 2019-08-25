@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 #
 #Hack Challenge
 #
@@ -170,7 +173,7 @@ def parseMercadoLibre(url,browser):
 	except:
 		mercadoLibre_descripcion = "-"
 			 
-	return mercadoLibre_name, mercadoLibre_price	
+	return mercadoLibre_name, mercadoLibre_price, mercadoLibre_pago, mercadoLibre_plazo, mercadoLibre_devolucion, mercadoLibre_descripcion
 
 def parseWalmart(url):
 	browser = webdriver.Firefox()
@@ -186,7 +189,7 @@ def parseWalmart(url):
 
 
 empresas = ["elektra","coppel","walmart","mercadoLibre"]
-#productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
+# ~ productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
 productos = ["Samsung Galaxy A50"]
 
 dic_productos = {}
@@ -233,24 +236,32 @@ for producto in productos:
 			url = get_mercadolibre(producto)
 			print(url)
 			
-			name,price = parseMercadoLibre(url,browser)
+			name, price, pago, plazo, devolucion, descripcion = parseMercadoLibre(url,browser)
 			
-			dic_productos[producto].append((name.strip(),"mercadoLibre",price))
+			price = float(re.sub(r'[^\d.]','',price))
+			credit = float(re.sub(r'[^\d.]','',pago))
+			time = float(re.search(r'\d+',plazo).group(0))
+			devolucion = float(re.search(r'\d+',devolucion).group(0))
+			
+			total = credit * time
+			relacion = total / price
+			
+			dic_productos[producto].append((name.strip(),"mercadoLibre",description.strip(),price, total, relacion,time,(0,0),devolucion,0))
 
 
 print(dic_productos)
 
 #install pymongo: python3 -m pip install pymongo
 #Parametros para la creacion y conexion con la base de datos
-#~ import pymongo
-#~ from pymongo import MongoClient
-#~ from bson.json_util import dumps, loads
+# ~ import pymongo
+# ~ from pymongo import MongoClient
+# ~ from bson.json_util import dumps, loads
   
-#~ # conexión
-#~ client = MongoClient('localhost',27017)
-#~ db = client.hacking_db
-#~ coleccion = db.productos
-#~ coleccion.insert_one(dic_productos)
+# ~ # conexión
+# ~ client = MongoClient('localhost',27017)
+# ~ db = client.hacking_db
+# ~ coleccion = db.productos
+# ~ coleccion.insert_one(dic_productos)
 
 
 
