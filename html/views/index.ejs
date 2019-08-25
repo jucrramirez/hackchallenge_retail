@@ -31,7 +31,6 @@ h2 {
 <body>
 
 <h1>KPIs</h1>
-<h2>Nombre del producto (de la base de datos)</h2>
 
 <div class="row">
   <div class="column">
@@ -52,45 +51,17 @@ h2 {
   </div>
 </div>
 
-  <script>
-	var A = <%= var1 %>
-	var B = <%= var2 %>
-	var C = <%= var3 %>
-	console.log(A)
-	console.log(B)
-	console.log(C)
+<script>
+	var PE = <%= pre_E %>
+	var PC = <%= pre_C %>
 	
 	var data = [{
-	  values: [A, B, C],
-	  labels: ['Residential', 'Non-Residential', 'Utility'],
+	  values: [PE, PC],
+	  labels: ['Elektra', 'Coppel'],
 	  type: 'pie'
 	}];
 
 	Plotly.newPlot('Precios', data, {}, {showSendToCloud:true});  
-
-	var data = [{
-	  values: [A, B, C],
-	  labels: ['Residential', 'Non-Residential', 'Utility'],
-	  type: 'pie'
-	}];
-
-	Plotly.newPlot('Garantia', data, {}, {showSendToCloud:true});  
-
-	var data = [{
-	  values: [A, B, C],
-	  labels: ['Residential', 'Non-Residential', 'Utility'],
-	  type: 'pie'
-	}];
-
-	Plotly.newPlot('Tiempo', data, {}, {showSendToCloud:true});  
-
-	var data = [{
-	  values: [A, B, C],
-	  labels: ['Residential', 'Non-Residential', 'Utility'],
-	  type: 'pie'
-	}];
-
-	Plotly.newPlot('Interes', data, {}, {showSendToCloud:true});  
 
 	</script>
 	
