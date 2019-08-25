@@ -226,14 +226,22 @@ for producto in productos:
 
 			name,price,payments,delivery,warranty,description = parseCoppel(url,browser)
 			
-			total, plazo=payments.split(" en ")
+			try:
+				total, plazo=payments.split(" en ")
+			except:
+				total = "0"
+				plazo = "0"
 			price = float(re.sub(r'[^\d.]','',price))
 			total = float(re.sub(r'[^\d.]','',total))
 			plazo = float(re.search(r'\d+',plazo).group(0))
 			
 			relacion = total/price
 			
-			deliver1, deliver2 = delivery.split(" a ")
+			try:
+				deliver1, deliver2 = delivery.split(" a ")
+			except:
+				deliver1 = "0"
+				deliver2 = "0"
 			deliver1 = float(re.search(r'\d+',deliver1).group(0))
 			deliver2 = float(re.search(r'\d+',deliver2).group(0))
 			

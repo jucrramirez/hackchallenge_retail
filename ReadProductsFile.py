@@ -3,3 +3,5 @@ def readProductsFile(path):
     products = f.split('\n')
     
     return products
+
+print(readProductsFile('./products.txt'))
