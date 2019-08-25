@@ -42,13 +42,14 @@ def walmart(busqueda):
     session = HTMLSession()
     r = session.get(link)
     r.html.render()
-    div = r.html.find('div[data-automation-id="production-index-0"] div div', first=False)
-    print(div)
-
+    div = r.html.find('div[data-automation-id="production-index-0"]', first=False)
+    for element in div:
+        print(element)
+    
+    
 #Pruebas
-url = mercadolibre('pantalones levis')
-print(url)
+#url = mercadolibre('pantalones levis')
 #coppel('nintendo switch')
 #liverpool('nintendo switch')
 #amazon('nintendo switch')
-#walmart('nintendo switch')
+walmart('nintendo switch')
