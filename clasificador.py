@@ -128,19 +128,48 @@ def parseCoppel(url,browser):
 	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia, coppel_descripcion
 	
 
-def parseMercadoLibre(soup):
-	for h1 in soup.find_all('h1'):
-		clases = h1.get('class')
-		if clases != None:
-			if "ui-pdp-title" in clases:
-				mercadoLibre_name = h1.get_text('class')
-				
-	for span in soup.find_all('span'):
-		clases = span.get('class')
-		if clases != None:
-			if "price-tag-fraction" in clases:
-				mercadoLibre_price = span.get_text('class')
-				 
+def parseMercadoLibre(url,browser):
+	browser.get(url)
+	html = browser.execute_script("return document.body.innerHTML")
+	
+	soup = BeautifulSoup(html,"lxml")
+	
+	h1 = soup.find('h1',{'class':'item-title__primary'})
+	try:
+		mercadoLibre_name = h1.text
+	except:
+		mercadoLibre_name = "-"
+	
+	span = soup.find('span',{'class':'price-tag-fraction'})
+	try:
+		mercadoLibre_price = span.text
+	except:
+		mercadoLibre_price = "0"
+	
+	span = soup.find('span',{'data-block':'installmentsQuantity'})
+	try:
+		mercadoLibre_plazo = span.text
+	except:
+		mercadoLibre_plazo = "0"
+	
+	strong = soup.find('strong',{'class':'ch-price','data-block':'price'})
+	try:
+		mercadoLibre_pago = strong.text
+	except:
+		mercadoLibre_pago = "0"
+	
+	p = soup.find('p',{'class':'benefits-row__subtitle','class':'returns-benefit-row__description'})
+	try:
+		mercadoLibre_devolucion = p.text
+	except:
+		mercadoLibre_devolucion = "0"
+	
+	div = soup.find('div',{'class':'item-description__text'}).find('p')
+	try:
+		mercadoLibre_descripcion = div.text
+	except:
+		mercadoLibre_descripcion = "-"
+			 
 	return mercadoLibre_name, mercadoLibre_price	
 
 def parseWalmart(url):
@@ -156,7 +185,7 @@ def parseWalmart(url):
 	return walmart_name, walmart_price
 
 
-empresas = ["elektra","coppel","walmart"]
+empresas = ["elektra","coppel","walmart","mercadoLibre"]
 #productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
 productos = ["Samsung Galaxy A50"]
 
@@ -200,21 +229,28 @@ for producto in productos:
 			relacion = total / price
 			
 			dic_productos[producto].append((name.strip(),"elektra",description.strip(),price, total, relacion,time,(2,8),5,1))
+		if empresa == "mercadoLibre":
+			url = get_mercadolibre(producto)
+			print(url)
+			
+			name,price = parseMercadoLibre(url,browser)
+			
+			dic_productos[producto].append((name.strip(),"mercadoLibre",price))
 
 
 print(dic_productos)
 
 #install pymongo: python3 -m pip install pymongo
 #Parametros para la creacion y conexion con la base de datos
-import pymongo
-from pymongo import MongoClient
-from bson.json_util import dumps, loads
+#~ import pymongo
+#~ from pymongo import MongoClient
+#~ from bson.json_util import dumps, loads
   
-# conexión
-client = MongoClient('localhost',27017)
-db = client.hacking_db
-coleccion = db.productos
-coleccion.insert_one(dic_productos)
+#~ # conexión
+#~ client = MongoClient('localhost',27017)
+#~ db = client.hacking_db
+#~ coleccion = db.productos
+#~ coleccion.insert_one(dic_productos)
 
 
 
