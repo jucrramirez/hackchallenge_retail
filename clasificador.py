@@ -80,13 +80,11 @@ def parseCoppel(url,browser):
 		pagos = pagos.split('(')[1].split('*')[0].strip()
 		coppel_pagos = pagos
 	
-	
-
+	#Obtención del plazo de la garantía
 	div = soup.find('li', {'class':'beneficio_garantia'})
 	children = div.findChildren("span", recursive=False)
 	for child in children:
 		garantia = child.get_text().split('\n')[2].strip()
-		print(garantia)
 		coppel_garantia = garantia
 
 	#Obtención de tiempo de entrega
@@ -94,7 +92,13 @@ def parseCoppel(url,browser):
 	item = div.findChild()
 	coppel_entrega = item.find('span').find('p').text
 
-	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia
+	#Obtención de descripción
+	div = soup.find('div', {'id':'desc'})
+	children = div.findChildren('p', recursive=False)
+	for child in children:
+		coppel_descripcion = child.get_text()
+
+	return coppel_name, coppel_price, coppel_pagos, coppel_entrega, coppel_garantia, coppel_descripcion
 	
 
 def parseMercadoLibre(soup):
@@ -138,7 +142,7 @@ for producto in productos:
 		if empresa == "coppel":
 			competencia["coppel"] = []
 			url = get_coppel(producto)
-			name,price,payments,delivery,warranty = parseCoppel(url,browser)
+			name,price,payments,delivery,warranty,description = parseCoppel(url,browser)
 			competencia["coppel"].append((name.strip(),price.strip(), payments.strip(), delivery.strip(), warranty.strip()))
 
 		
