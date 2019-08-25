@@ -12,6 +12,12 @@ import subprocess
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
+#Función para leer productos desde archivo
+def readProductsFile(path):
+    f = open(path, 'r', encoding='utf8').read()
+    products = f.split('\n')
+    return products
+
 #Crawler elektra
 def get_elektra(busqueda):
 
@@ -210,7 +216,8 @@ def parseWalmart(url):
 
 
 empresas = ["elektra","coppel","walmart","mercadoLibre"]
-productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
+productos = readProductsFile('./products.txt')
+#productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
 #productos = ["Samsung Galaxy A50"]
 
 dic_productos = {}
