@@ -143,7 +143,7 @@ for empresa in empresas:
 			competencia["coppel"] = []
 			url = get_coppel(producto)
 
-			name,price,payments,delivery,warranty = parseCoppel(url,browser)
+			name,price,payments,delivery,warranty,description = parseCoppel(url,browser)
 			
 			total, plazo=payments.split(" en ")
 			price = float(re.sub(r'[^\d.]','',price))
