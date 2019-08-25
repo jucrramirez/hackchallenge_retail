@@ -21,7 +21,6 @@ def get_elektra(busqueda):
 
 #Crawler mercadolibre
 def get_mercadolibre(busqueda):
-
     link ='https://listado.mercadolibre.com.mx/'
     busqueda = re.sub(' ','-',busqueda)
     link = link + busqueda
@@ -67,10 +66,16 @@ def parseElektra(url,browser):
 	
 	#Obtención de pagos
 	span = soup.find('span',{'id':'valor-semanal'})
-	elektra_pago = span.text
+	try:
+		elektra_pago = span.text
+	except:
+		elektra_pago = "0"
 	div = soup.find('div',{'class':'msj'})
-	elektra_plazo = div.text
-
+	try:
+		elektra_plazo = div.text
+	except:
+		elektra_plazo = "0"
+		
 	return elektra_name,elektra_price,elektra_description,elektra_pago,elektra_plazo
 
 
@@ -83,10 +88,14 @@ def parseCoppel(url,browser):
 	html = browser.execute_script("return document.body.innerHTML")
 
 	soup = BeautifulSoup(html,"lxml")
-	
-	coppel_name = soup.find("h1",{"class":"main_header"}).text
-	coppel_price = soup.find("span",{"itemprop":"price"}).text
-	
+	try:
+		coppel_name = soup.find("h1",{"class":"main_header"}).text
+	except:
+		coppel_name = "-"
+	try:	
+		coppel_price = soup.find("span",{"itemprop":"price"}).text
+	except:
+		coppel_price = "0"
 	#Obtención de pagos
 	div = soup.find('div', {'class':'p_credito'})
 	children = div.findChildren("p" , recursive=False)
@@ -148,7 +157,8 @@ def parseWalmart(url):
 
 
 empresas = ["elektra","coppel","walmart"]
-productos = ["nintendo switch"]
+#productos = ["Samsung Galaxy A50","iphone 6s 32GB","Dragon Ball FighterZ","Apple iPhone XR 64 GB","Motorola One"]
+productos = ["Samsung Galaxy A50"]
 
 dic_productos = {}
 
@@ -191,8 +201,21 @@ for producto in productos:
 			
 			dic_productos[producto].append((name.strip(),"elektra",description.strip(),price, total, relacion,time,(2,8),5,1))
 
-		
+
 print(dic_productos)
+
+#install pymongo: python3 -m pip install pymongo
+#Parametros para la creacion y conexion con la base de datos
+import pymongo
+from pymongo import MongoClient
+from bson.json_util import dumps, loads
+  
+# conexión
+client = MongoClient('localhost',27017)
+db = client.hacking_db
+coleccion = db.productos
+coleccion.insert_one(dic_productos)
+
 
 
 #~ for html,archivo in zip(htmls,empresas):
